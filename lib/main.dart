@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive/breakpoints.dart';
 import 'package:responsive/max_width_container.dart';
 import 'package:responsive/responsive_layout.dart';
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: MaxWidthContainer(
         child: ResponsiveLayout(
@@ -30,6 +32,7 @@ class MyHomePage extends StatelessWidget {
           desktopBody: MyCustomDesktopWidget(),
         ),
       ),
+      appBar: screenWidth <= kTabletBreakpoint ? AppBar() : null,
     );
   }
 }
@@ -37,14 +40,32 @@ class MyHomePage extends StatelessWidget {
 class MyCustomMobileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('Mobile Body');
+    return Container(
+      child: Text(
+        'Mobile',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 25),
+      ),
+      height: 200,
+      color: Colors.green,
+      width: double.infinity,
+    );
   }
 }
 
 class MyCustomTabletBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('Tablet Body');
+    return Container(
+      child: Text(
+        'Tablet',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 25),
+      ),
+      height: 200,
+      color: Colors.blue,
+      width: double.infinity,
+    );
   }
 }
 
@@ -54,8 +75,9 @@ class MyCustomDesktopWidget extends StatelessWidget {
     return Center(
       child: Container(
         child: Text(
-          'Desktop Body',
+          'Desktop',
           textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 25),
         ),
         height: 200,
         color: Colors.red,
